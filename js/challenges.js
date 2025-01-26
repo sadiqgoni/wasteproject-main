@@ -33,4 +33,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Show default tab (waste)
     showTab('waste');
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navbar')) {
+            navLinks.classList.remove('active');
+        }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const section = document.querySelector(this.getAttribute('href'));
+            if (section) {
+                // Close mobile menu when clicking a link
+                navLinks.classList.remove('active');
+                
+                // Scroll to section
+                section.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 });
